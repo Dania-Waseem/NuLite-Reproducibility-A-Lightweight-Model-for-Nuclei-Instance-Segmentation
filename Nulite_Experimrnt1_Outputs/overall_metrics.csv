@@ -1,0 +1,13 @@
+Metric,Our Result (20 epochs),Paper Result (NuLite-T)
+Dice,0.7331,0.7103
+Jaccard,0.6195,0.62
+bPQ,0.4787,0.6817
+bDQ,0.6265,0.75
+bSQ,0.7477,0.81
+mPQ,0.2117,0.4762
+mDQ,0.2768,0.58
+mSQ,0.4664,0.72
+F1 Detection,0.7235,0.8204
+Precision,0.6713,0.79
+Recall,0.7844,0.85
+Tissue Accuracy,0.4945,0.65

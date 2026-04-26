@@ -1,0 +1,10 @@
+Metric,"Paper (NuLite-T, 130 epochs)","Ours (20 epochs, Fold 2)",Difference
+mPQ,0.4762,0.2117,-0.2645
+bPQ,0.6817,0.4787,-0.203
+F1 Detection,0.8204,0.7235,-0.0969
+Dice,0.7103,0.7331,0.0228
+PQ Neoplastic,0.5121,0.39396,-0.1181
+PQ Inflammatory,0.4213,0.0144326,-0.4069
+PQ Connective,0.3984,0.212323,-0.1861
+PQ Dead,0.2011,0.0,-0.2011
+PQ Epithelial,0.4491,0.00136884,-0.4477

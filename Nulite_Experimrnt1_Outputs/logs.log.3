@@ -1,0 +1,1009 @@
+2026-04-26 13:58:27,754 [INFO] - Run ist stored here: /content/drive/MyDrive/NuLite_Exp1_outputs
+2026-04-26 13:58:27,770 [DEBUG] - Stored config under: /content/drive/MyDrive/NuLite_Exp1_outputs/NuLite.yaml
+2026-04-26 13:58:27,789 [INFO] - Cuda devices: [<torch.cuda.device object at 0x7aa4b08a3590>]
+2026-04-26 13:58:27,790 [INFO] - Using GPU: cuda:0
+2026-04-26 13:58:27,790 [INFO] - Using device: cuda:0
+2026-04-26 13:58:27,791 [INFO] - Loss functions:
+2026-04-26 13:58:27,791 [INFO] - {'nuclei_binary_map': {'dice': {'loss_fn': DiceLoss(), 'weight': 1}, 'focaltverskyloss': {'loss_fn': FocalTverskyLoss(), 'weight': 1}}, 'hv_map': {'mse': {'loss_fn': MSELossMaps(), 'weight': 1}, 'msge': {'loss_fn': MSGELossMaps(), 'weight': 1}}, 'nuclei_type_map': {'bce': {'loss_fn': XentropyLoss(), 'weight': 1}, 'dice': {'loss_fn': DiceLoss(), 'weight': 1}, 'mcfocaltverskyloss': {'loss_fn': MCFocalTverskyLoss(), 'weight': 1}}, 'tissue_types': {'ce': {'loss_fn': CrossEntropyLoss(), 'weight': 1}}}
+2026-04-26 13:58:29,003 [INFO] - Loaded NuLite model with backbone: fastvit_t8
+2026-04-26 13:58:29,009 [INFO] - 
+Model: NuLite(
+  (encoder): FastViTEncoder(
+    (fast_vit): FeatureListNet(
+      (stem_0): MobileOneBlock(
+        (se): Identity()
+        (conv_kxk): ModuleList(
+          (0): ConvNormAct(
+            (conv): Conv2d(3, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn): BatchNormAct2d(
+              48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+              (drop): Identity()
+              (act): Identity()
+            )
+          )
+        )
+        (conv_scale): ConvNormAct(
+          (conv): Conv2d(3, 48, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (bn): BatchNormAct2d(
+            48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+            (drop): Identity()
+            (act): Identity()
+          )
+        )
+        (act): GELU(approximate='none')
+      )
+      (stem_1): MobileOneBlock(
+        (se): Identity()
+        (conv_kxk): ModuleList(
+          (0): ConvNormAct(
+            (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=48, bias=False)
+            (bn): BatchNormAct2d(
+              48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+              (drop): Identity()
+              (act): Identity()
+            )
+          )
+        )
+        (conv_scale): ConvNormAct(
+          (conv): Conv2d(48, 48, kernel_size=(1, 1), stride=(2, 2), groups=48, bias=False)
+          (bn): BatchNormAct2d(
+            48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+            (drop): Identity()
+            (act): Identity()
+          )
+        )
+        (act): GELU(approximate='none')
+      )
+      (stem_2): MobileOneBlock(
+        (se): Identity()
+        (identity): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv_kxk): ModuleList(
+          (0): ConvNormAct(
+            (conv): Conv2d(48, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (bn): BatchNormAct2d(
+              48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+              (drop): Identity()
+              (act): Identity()
+            )
+          )
+        )
+        (act): GELU(approximate='none')
+      )
+      (stages_0): FastVitStage(
+        (downsample): Identity()
+        (pos_emb): Identity()
+        (blocks): Sequential(
+          (0): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                    (bn): BatchNormAct2d(
+                      48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(48, 48, kernel_size=(1, 1), stride=(1, 1), groups=48, bias=False)
+                  (bn): BatchNormAct2d(
+                    48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(48, 48, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=48, bias=False)
+                (bn): BatchNormAct2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(48, 144, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(144, 48, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+          (1): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                    (bn): BatchNormAct2d(
+                      48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(48, 48, kernel_size=(1, 1), stride=(1, 1), groups=48, bias=False)
+                  (bn): BatchNormAct2d(
+                    48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(48, 48, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=48, bias=False)
+                (bn): BatchNormAct2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(48, 144, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(144, 48, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+        )
+      )
+      (stages_1): FastVitStage(
+        (downsample): PatchEmbed(
+          (proj): Sequential(
+            (0): ReparamLargeKernelConv(
+              (large_conv): ConvNormAct(
+                (conv): Conv2d(48, 96, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=48, bias=False)
+                (bn): BatchNormAct2d(
+                  96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (small_conv): ConvNormAct(
+                (conv): Conv2d(48, 96, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=48, bias=False)
+                (bn): BatchNormAct2d(
+                  96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (se): Identity()
+              (act): Identity()
+            )
+            (1): MobileOneBlock(
+              (se): Identity()
+              (identity): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (conv_kxk): ModuleList(
+                (0): ConvNormAct(
+                  (conv): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                  (bn): BatchNormAct2d(
+                    96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+              )
+              (act): GELU(approximate='none')
+            )
+          )
+        )
+        (pos_emb): Identity()
+        (blocks): Sequential(
+          (0): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96, bias=False)
+                    (bn): BatchNormAct2d(
+                      96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1), groups=96, bias=False)
+                  (bn): BatchNormAct2d(
+                    96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(96, 96, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=96, bias=False)
+                (bn): BatchNormAct2d(
+                  96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(96, 288, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(288, 96, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+          (1): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96, bias=False)
+                    (bn): BatchNormAct2d(
+                      96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1), groups=96, bias=False)
+                  (bn): BatchNormAct2d(
+                    96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(96, 96, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=96, bias=False)
+                (bn): BatchNormAct2d(
+                  96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(96, 288, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(288, 96, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+        )
+      )
+      (stages_2): FastVitStage(
+        (downsample): PatchEmbed(
+          (proj): Sequential(
+            (0): ReparamLargeKernelConv(
+              (large_conv): ConvNormAct(
+                (conv): Conv2d(96, 192, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=96, bias=False)
+                (bn): BatchNormAct2d(
+                  192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (small_conv): ConvNormAct(
+                (conv): Conv2d(96, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=96, bias=False)
+                (bn): BatchNormAct2d(
+                  192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (se): Identity()
+              (act): Identity()
+            )
+            (1): MobileOneBlock(
+              (se): Identity()
+              (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (conv_kxk): ModuleList(
+                (0): ConvNormAct(
+                  (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                  (bn): BatchNormAct2d(
+                    192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+              )
+              (act): GELU(approximate='none')
+            )
+          )
+        )
+        (pos_emb): Identity()
+        (blocks): Sequential(
+          (0): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)
+                    (bn): BatchNormAct2d(
+                      192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1), groups=192, bias=False)
+                  (bn): BatchNormAct2d(
+                    192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192, bias=False)
+                (bn): BatchNormAct2d(
+                  192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(192, 576, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(576, 192, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+          (1): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)
+                    (bn): BatchNormAct2d(
+                      192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1), groups=192, bias=False)
+                  (bn): BatchNormAct2d(
+                    192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192, bias=False)
+                (bn): BatchNormAct2d(
+                  192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(192, 576, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(576, 192, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+          (2): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)
+                    (bn): BatchNormAct2d(
+                      192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1), groups=192, bias=False)
+                  (bn): BatchNormAct2d(
+                    192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192, bias=False)
+                (bn): BatchNormAct2d(
+                  192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(192, 576, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(576, 192, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+          (3): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)
+                    (bn): BatchNormAct2d(
+                      192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1), groups=192, bias=False)
+                  (bn): BatchNormAct2d(
+                    192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192, bias=False)
+                (bn): BatchNormAct2d(
+                  192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(192, 576, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(576, 192, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+        )
+      )
+      (stages_3): FastVitStage(
+        (downsample): PatchEmbed(
+          (proj): Sequential(
+            (0): ReparamLargeKernelConv(
+              (large_conv): ConvNormAct(
+                (conv): Conv2d(192, 384, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=192, bias=False)
+                (bn): BatchNormAct2d(
+                  384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (small_conv): ConvNormAct(
+                (conv): Conv2d(192, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=192, bias=False)
+                (bn): BatchNormAct2d(
+                  384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (se): Identity()
+              (act): Identity()
+            )
+            (1): MobileOneBlock(
+              (se): Identity()
+              (identity): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (conv_kxk): ModuleList(
+                (0): ConvNormAct(
+                  (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                  (bn): BatchNormAct2d(
+                    384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+              )
+              (act): GELU(approximate='none')
+            )
+          )
+        )
+        (pos_emb): Identity()
+        (blocks): Sequential(
+          (0): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+                    (bn): BatchNormAct2d(
+                      384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1), groups=384, bias=False)
+                  (bn): BatchNormAct2d(
+                    384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384, bias=False)
+                (bn): BatchNormAct2d(
+                  384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(384, 1152, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(1152, 384, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+          (1): RepMixerBlock(
+            (token_mixer): RepMixer(
+              (norm): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (act): Identity()
+              )
+              (mixer): MobileOneBlock(
+                (se): Identity()
+                (identity): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (conv_kxk): ModuleList(
+                  (0): ConvNormAct(
+                    (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+                    (bn): BatchNormAct2d(
+                      384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                      (drop): Identity()
+                      (act): Identity()
+                    )
+                  )
+                )
+                (conv_scale): ConvNormAct(
+                  (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1), groups=384, bias=False)
+                  (bn): BatchNormAct2d(
+                    384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                    (drop): Identity()
+                    (act): Identity()
+                  )
+                )
+                (act): Identity()
+              )
+              (layer_scale): LayerScale2d()
+            )
+            (mlp): ConvMlp(
+              (conv): ConvNormAct(
+                (conv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384, bias=False)
+                (bn): BatchNormAct2d(
+                  384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True
+                  (drop): Identity()
+                  (act): Identity()
+                )
+              )
+              (fc1): Conv2d(384, 1152, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+              (fc2): Conv2d(1152, 384, kernel_size=(1, 1), stride=(1, 1))
+              (drop): Dropout(p=0.0, inplace=False)
+            )
+            (layer_scale): LayerScale2d()
+            (drop_path): Identity()
+          )
+        )
+      )
+    )
+    (avg_pooling): Sequential(
+      (0): AdaptiveAvgPool2d(output_size=(1, 1))
+      (1): Flatten(start_dim=1, end_dim=-1)
+    )
+  )
+  (classifier_head): Linear(in_features=384, out_features=19, bias=True)
+  (decoder0): Sequential(
+    (0): Conv2DBlock(
+      (block): Sequential(
+        (0): Conv2d(3, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Dropout(p=0, inplace=False)
+      )
+    )
+  )
+  (decoder): Sequential(
+    (bottleneck_upsampler): Sequential(
+      (0): Conv2DBlock(
+        (block): Sequential(
+          (0): Conv2d(384, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Dropout(p=0, inplace=False)
+        )
+      )
+      (1): ConvTranspose2d(192, 192, kernel_size=(2, 2), stride=(2, 2))
+    )
+    (decoder4_upsampler): Sequential(
+      (0): Conv2DBlock(
+        (block): Sequential(
+          (0): Conv2d(384, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Dropout(p=0, inplace=False)
+        )
+      )
+      (1): Conv2DBlock(
+        (block): Sequential(
+          (0): Conv2d(192, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Dropout(p=0, inplace=False)
+        )
+      )
+      (2): ConvTranspose2d(96, 96, kernel_size=(2, 2), stride=(2, 2))
+    )
+    (decoder3_upsampler): Sequential(
+      (0): Conv2DBlock(
+        (block): Sequential(
+          (0): Conv2d(192, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Dropout(p=0, inplace=False)
+        )
+      )
+      (1): Conv2DBlock(
+        (block): Sequential(
+          (0): Conv2d(96, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Dropout(p=0, inplace=False)
+        )
+      )
+      (2): ConvTranspose2d(48, 48, kernel_size=(2, 2), stride=(2, 2))
+    )
+    (decoder2_upsampler): Sequential(
+      (0): Conv2DBlock(
+        (block): Sequential(
+          (0): Conv2d(96, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Dropout(p=0, inplace=False)
+        )
+      )
+      (1): ConvTranspose2d(48, 48, kernel_size=(2, 2), stride=(2, 2))
+    )
+    (decoder1_upsampler): Sequential(
+      (0): Conv2DBlock(
+        (block): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Dropout(p=0, inplace=False)
+        )
+      )
+      (1): ConvTranspose2d(48, 48, kernel_size=(2, 2), stride=(2, 2))
+    )
+  )
+  (np_head): Sequential(
+    (0): Conv2DBlock(
+      (block): Sequential(
+        (0): Conv2d(96, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Dropout(p=0, inplace=False)
+      )
+    )
+    (1): Conv2d(48, 2, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (hv_head): Sequential(
+    (0): Conv2DBlock(
+      (block): Sequential(
+        (0): Conv2d(96, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Dropout(p=0, inplace=False)
+      )
+    )
+    (1): Conv2d(48, 2, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (tp_head): Sequential(
+    (0): Conv2DBlock(
+      (block): Sequential(
+        (0): Conv2d(96, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Dropout(p=0, inplace=False)
+      )
+    )
+    (1): Conv2d(48, 6, kernel_size=(1, 1), stride=(1, 1))
+  )
+)
+2026-04-26 13:58:30,033 [INFO] - 
+=============================================================================================================================
+Layer (type:depth-idx)                                                      Output Shape              Param #
+=============================================================================================================================
+NuLite                                                                      [1, 6, 256, 256]          --
+├─FastViTEncoder: 1-1                                                       [1, 384]                  --
+│    └─FeatureListNet: 2-1                                                  [1, 48, 64, 64]           --
+│    │    └─MobileOneBlock: 3-1                                             [1, 48, 128, 128]         1,632
+│    │    └─MobileOneBlock: 3-2                                             [1, 48, 64, 64]           672
+│    │    └─MobileOneBlock: 3-3                                             [1, 48, 64, 64]           2,496
+│    │    └─FastVitStage: 3-4                                               [1, 48, 64, 64]           34,848
+│    │    └─FastVitStage: 3-5                                               [1, 96, 32, 32]           140,544
+│    │    └─FastVitStage: 3-6                                               [1, 192, 16, 16]          991,872
+│    │    └─FastVitStage: 3-7                                               [1, 384, 8, 8]            1,999,872
+│    └─Sequential: 2-2                                                      [1, 384]                  --
+│    │    └─AdaptiveAvgPool2d: 3-8                                          [1, 384, 1, 1]            --
+│    │    └─Flatten: 3-9                                                    [1, 384]                  --
+├─Linear: 1-2                                                               [1, 19]                   7,315
+├─Sequential: 1-3                                                           --                        --
+│    └─Sequential: 2-3                                                      [1, 192, 16, 16]          --
+│    │    └─Conv2DBlock: 3-10                                               [1, 192, 8, 8]            664,128
+│    │    └─ConvTranspose2d: 3-11                                           [1, 192, 16, 16]          147,648
+│    └─Sequential: 2-4                                                      [1, 96, 32, 32]           --
+│    │    └─Conv2DBlock: 3-12                                               [1, 192, 16, 16]          664,128
+│    │    └─Conv2DBlock: 3-13                                               [1, 96, 16, 16]           166,176
+│    │    └─ConvTranspose2d: 3-14                                           [1, 96, 32, 32]           36,960
+│    └─Sequential: 2-5                                                      [1, 48, 64, 64]           --
+│    │    └─Conv2DBlock: 3-15                                               [1, 96, 32, 32]           166,176
+│    │    └─Conv2DBlock: 3-16                                               [1, 48, 32, 32]           41,616
+│    │    └─ConvTranspose2d: 3-17                                           [1, 48, 64, 64]           9,264
+│    └─Sequential: 2-6                                                      [1, 48, 128, 128]         --
+│    │    └─Conv2DBlock: 3-18                                               [1, 48, 64, 64]           41,616
+│    │    └─ConvTranspose2d: 3-19                                           [1, 48, 128, 128]         9,264
+│    └─Sequential: 2-7                                                      [1, 48, 256, 256]         --
+│    │    └─Conv2DBlock: 3-20                                               [1, 48, 128, 128]         20,880
+│    │    └─ConvTranspose2d: 3-21                                           [1, 48, 256, 256]         9,264
+├─Sequential: 1-4                                                           [1, 48, 256, 256]         --
+│    └─Conv2DBlock: 2-8                                                     [1, 48, 256, 256]         --
+│    │    └─Sequential: 3-22                                                [1, 48, 256, 256]         1,440
+├─Sequential: 1-5                                                           [1, 2, 256, 256]          --
+│    └─Conv2DBlock: 2-9                                                     [1, 48, 256, 256]         --
+│    │    └─Sequential: 3-23                                                [1, 48, 256, 256]         41,616
+│    └─Conv2d: 2-10                                                         [1, 2, 256, 256]          98
+├─Sequential: 1-6                                                           [1, 2, 256, 256]          --
+│    └─Conv2DBlock: 2-11                                                    [1, 48, 256, 256]         --
+│    │    └─Sequential: 3-24                                                [1, 48, 256, 256]         41,616
+│    └─Conv2d: 2-12                                                         [1, 2, 256, 256]          98
+├─Sequential: 1-7                                                           [1, 6, 256, 256]          --
+│    └─Conv2DBlock: 2-13                                                    [1, 48, 256, 256]         --
+│    │    └─Sequential: 3-25                                                [1, 48, 256, 256]         41,616
+│    └─Conv2d: 2-14                                                         [1, 6, 256, 256]          294
+=============================================================================================================================
+Total params: 5,283,149
+Trainable params: 5,283,149
+Non-trainable params: 0
+Total mult-adds (Units.GIGABYTES): 10.83
+=============================================================================================================================
+Input size (MB): 0.79
+Forward/backward pass size (MB): 358.15
+Params size (MB): 21.07
+Estimated Total Size (MB): 380.01
+=============================================================================================================================
+2026-04-26 13:58:30,304 [INFO] - Loaded AdamW Optimizer with following hyperparameters:
+2026-04-26 13:58:30,304 [INFO] - {'lr': 0.0003, 'weight_decay': 0.0001, 'betas': [0.85, 0.95]}
+2026-04-26 13:58:30,304 [INFO] - Using early stopping with a range of 20 and minimize strategy
+2026-04-26 13:58:30,812 [INFO] - Using Weighted Sampling with strategy: cell+tissue
+2026-04-26 13:58:30,849 [INFO] - Unique-Weights: tensor([0.5558, 0.5935, 0.6870, 0.6991, 0.7247, 0.7262, 0.7300, 0.7314, 0.7691,
+        0.8303, 0.8356, 0.8611, 0.8626, 0.8747, 0.9003, 0.9056, 0.9667, 0.9823,
+        0.9883, 0.9902, 1.0044, 1.0059, 1.0072, 1.0097, 1.0112, 1.0200, 1.0215,
+        1.0260, 1.0278, 1.0367, 1.0449, 1.0536, 1.0910, 1.0913, 1.0922, 1.0927,
+        1.1088, 1.1094, 1.1143, 1.1149, 1.1161, 1.1173, 1.1216, 1.1256, 1.1287,
+        1.1299, 1.1316, 1.1400, 1.1423, 1.1465, 1.1471, 1.1478, 1.1480, 1.1505,
+        1.1520, 1.1526, 1.1538, 1.1550, 1.1565, 1.1579, 1.1624, 1.1639, 1.1643,
+        1.1658, 1.1660, 1.1777, 1.1813, 1.1828, 1.1853, 1.1855, 1.1870, 1.1956,
+        1.1969, 1.2016, 1.2034, 1.2205, 1.2277, 1.2292, 1.2343, 1.2355, 1.2521,
+        1.2580, 1.2595, 1.2621, 1.2651, 1.2663, 1.2666, 1.2669, 1.2678, 1.2680,
+        1.2699, 1.2829, 1.2835, 1.2844, 1.2850, 1.2869, 1.2884, 1.2890, 1.2899,
+        1.2902, 1.2905, 1.2915, 1.2929, 1.2972, 1.3055, 1.3072, 1.3141, 1.3156,
+        1.3165, 1.3219, 1.3221, 1.3227, 1.3234, 1.3276, 1.3282, 1.3294, 1.3306,
+        1.3321, 1.3380, 1.3399, 1.3533, 1.3569, 1.3611, 1.3707, 1.3719, 1.3766,
+        1.3885, 1.3891, 1.3940, 1.3971, 1.4033, 1.4081, 1.4099, 1.4111, 1.4197,
+        1.4275, 1.4277, 1.4332, 1.4336, 1.4362, 1.4377, 1.4407, 1.4419, 1.4436,
+        1.4455, 1.4585, 1.4591, 1.4640, 1.4646, 1.4658, 1.4671, 1.4881, 1.4897,
+        1.4975, 1.5089, 1.5130, 1.5463, 1.5475, 1.5507, 1.5593, 1.5608, 1.5641,
+        1.5647, 1.5696, 1.5702, 1.5712, 1.5746, 1.5953, 1.6174, 1.6260, 1.6871,
+        1.6874, 1.7349, 1.7468, 1.7502, 1.7695, 1.8002, 1.8615, 1.8627, 1.8866,
+        1.9432])
+2026-04-26 13:58:30,850 [INFO] - Instantiate Trainer
+2026-04-26 13:58:30,850 [INFO] - Calling Trainer Fit
+2026-04-26 13:58:30,850 [INFO] - Starting training, total number of epochs: 20
+2026-04-26 13:58:30,851 [INFO] - Epoch: 1/20
+2026-04-26 14:00:21,603 [INFO] - Training epoch stats:     Loss: 14.8192 - 
+2026-04-26 14:01:45,906 [INFO] - Validation epoch stats:   Loss: 12.9032 - 
+2026-04-26 14:01:45,914 [INFO] - New best model - save checkpoint
+2026-04-26 14:01:46,776 [DEBUG] - Old lr: 0.000300 - New lr: 0.000285
+2026-04-26 14:01:46,777 [INFO] - Epoch: 2/20
+2026-04-26 14:03:29,094 [INFO] - Training epoch stats:     Loss: 12.3014 - 
+2026-04-26 14:04:45,969 [INFO] - Validation epoch stats:   Loss: 11.1421 - 
+2026-04-26 14:04:45,980 [INFO] - New best model - save checkpoint
+2026-04-26 14:04:46,776 [DEBUG] - Old lr: 0.000285 - New lr: 0.000271
+2026-04-26 14:04:46,777 [INFO] - Epoch: 3/20
+2026-04-26 14:06:32,642 [INFO] - Training epoch stats:     Loss: 11.0234 - 
+2026-04-26 14:07:51,837 [INFO] - Validation epoch stats:   Loss: 10.0851 - 
+2026-04-26 14:07:51,846 [INFO] - New best model - save checkpoint
+2026-04-26 14:07:52,701 [DEBUG] - Old lr: 0.000271 - New lr: 0.000257
+2026-04-26 14:07:52,702 [INFO] - Epoch: 4/20
+2026-04-26 14:09:32,567 [INFO] - Training epoch stats:     Loss: 10.2167 - 
+2026-04-26 14:10:49,220 [INFO] - Validation epoch stats:   Loss: 9.9223 - 
+2026-04-26 14:10:49,227 [INFO] - New best model - save checkpoint
+2026-04-26 14:10:50,072 [DEBUG] - Old lr: 0.000257 - New lr: 0.000244
+2026-04-26 14:10:50,072 [INFO] - Epoch: 5/20
+2026-04-26 14:12:30,871 [INFO] - Training epoch stats:     Loss: 9.8123 - 
+2026-04-26 14:13:49,164 [INFO] - Validation epoch stats:   Loss: 9.8061 - 
+2026-04-26 14:13:49,173 [INFO] - New best model - save checkpoint
+2026-04-26 14:13:50,815 [DEBUG] - Old lr: 0.000244 - New lr: 0.000232
+2026-04-26 14:13:50,817 [INFO] - Epoch: 6/20
+2026-04-26 14:15:31,142 [INFO] - Training epoch stats:     Loss: 9.6457 - 
+2026-04-26 14:16:46,463 [INFO] - Validation epoch stats:   Loss: 9.3228 - 
+2026-04-26 14:16:46,477 [INFO] - New best model - save checkpoint
+2026-04-26 14:16:47,646 [DEBUG] - Old lr: 0.000232 - New lr: 0.000221
+2026-04-26 14:16:47,652 [INFO] - Epoch: 7/20
+2026-04-26 14:18:25,465 [INFO] - Training epoch stats:     Loss: 9.3530 - 
+2026-04-26 14:19:40,393 [INFO] - Validation epoch stats:   Loss: 9.6129 - 
+2026-04-26 14:19:40,942 [DEBUG] - Old lr: 0.000221 - New lr: 0.000210
+2026-04-26 14:19:40,943 [INFO] - Epoch: 8/20
+2026-04-26 14:21:17,484 [INFO] - Training epoch stats:     Loss: 9.1159 - 
+2026-04-26 14:22:32,981 [INFO] - Validation epoch stats:   Loss: 9.1144 - 
+2026-04-26 14:22:32,989 [INFO] - New best model - save checkpoint
+2026-04-26 14:22:33,979 [DEBUG] - Old lr: 0.000210 - New lr: 0.000199
+2026-04-26 14:22:33,980 [INFO] - Epoch: 9/20
+2026-04-26 14:24:13,296 [INFO] - Training epoch stats:     Loss: 9.0975 - 
+2026-04-26 14:25:30,215 [INFO] - Validation epoch stats:   Loss: 9.0394 - 
+2026-04-26 14:25:30,223 [INFO] - New best model - save checkpoint
+2026-04-26 14:25:31,627 [DEBUG] - Old lr: 0.000199 - New lr: 0.000189
+2026-04-26 14:25:31,630 [INFO] - Epoch: 10/20
+2026-04-26 14:27:09,618 [INFO] - Training epoch stats:     Loss: 8.9348 - 
+2026-04-26 14:28:25,161 [INFO] - Validation epoch stats:   Loss: 8.9226 - 
+2026-04-26 14:28:25,168 [INFO] - New best model - save checkpoint
+2026-04-26 14:28:26,447 [DEBUG] - Old lr: 0.000189 - New lr: 0.000180
+2026-04-26 14:28:26,449 [INFO] - Epoch: 11/20
+2026-04-26 14:30:02,609 [INFO] - Training epoch stats:     Loss: 8.8077 - 
+2026-04-26 14:31:17,595 [INFO] - Validation epoch stats:   Loss: 9.0058 - 
+2026-04-26 14:31:17,976 [DEBUG] - Old lr: 0.000180 - New lr: 0.000171
+2026-04-26 14:31:17,976 [INFO] - Epoch: 12/20
+2026-04-26 14:32:55,095 [INFO] - Training epoch stats:     Loss: 8.7414 - 
+2026-04-26 14:34:10,038 [INFO] - Validation epoch stats:   Loss: 8.8540 - 
+2026-04-26 14:34:10,059 [INFO] - New best model - save checkpoint
+2026-04-26 14:34:10,996 [DEBUG] - Old lr: 0.000171 - New lr: 0.000162
+2026-04-26 14:34:10,996 [INFO] - Epoch: 13/20
+2026-04-26 14:35:48,626 [INFO] - Training epoch stats:     Loss: 8.7244 - 
+2026-04-26 14:37:01,712 [INFO] - Validation epoch stats:   Loss: 8.9274 - 
+2026-04-26 14:37:02,769 [DEBUG] - Old lr: 0.000162 - New lr: 0.000154
+2026-04-26 14:37:02,772 [INFO] - Epoch: 14/20
+2026-04-26 14:38:39,927 [INFO] - Training epoch stats:     Loss: 8.6251 - 
+2026-04-26 14:39:53,639 [INFO] - Validation epoch stats:   Loss: 8.7849 - 
+2026-04-26 14:39:53,653 [INFO] - New best model - save checkpoint
+2026-04-26 14:39:55,542 [DEBUG] - Old lr: 0.000154 - New lr: 0.000146
+2026-04-26 14:39:55,544 [INFO] - Epoch: 15/20
+2026-04-26 14:41:33,760 [INFO] - Training epoch stats:     Loss: 8.4411 - 
+2026-04-26 14:42:46,723 [INFO] - Validation epoch stats:   Loss: 8.7163 - 
+2026-04-26 14:42:46,731 [INFO] - New best model - save checkpoint
+2026-04-26 14:42:47,653 [DEBUG] - Old lr: 0.000146 - New lr: 0.000139
+2026-04-26 14:42:47,654 [INFO] - Epoch: 16/20
+2026-04-26 14:44:26,519 [INFO] - Training epoch stats:     Loss: 8.4439 - 
+2026-04-26 14:45:39,213 [INFO] - Validation epoch stats:   Loss: 8.7124 - 
+2026-04-26 14:45:39,222 [INFO] - New best model - save checkpoint
+2026-04-26 14:45:40,716 [DEBUG] - Old lr: 0.000139 - New lr: 0.000132
+2026-04-26 14:45:40,717 [INFO] - Epoch: 17/20
+2026-04-26 14:47:19,212 [INFO] - Training epoch stats:     Loss: 8.3861 - 
+2026-04-26 14:48:32,722 [INFO] - Validation epoch stats:   Loss: 8.6650 - 
+2026-04-26 14:48:32,727 [INFO] - New best model - save checkpoint
+2026-04-26 14:48:34,153 [DEBUG] - Old lr: 0.000132 - New lr: 0.000125
+2026-04-26 14:48:34,155 [INFO] - Epoch: 18/20
+2026-04-26 14:50:14,214 [INFO] - Training epoch stats:     Loss: 8.3505 - 
+2026-04-26 14:51:28,209 [INFO] - Validation epoch stats:   Loss: 8.6830 - 
+2026-04-26 14:51:29,020 [DEBUG] - Old lr: 0.000125 - New lr: 0.000119
+2026-04-26 14:51:29,024 [INFO] - Epoch: 19/20
+2026-04-26 14:53:06,365 [INFO] - Training epoch stats:     Loss: 8.3090 - 
+2026-04-26 14:54:20,880 [INFO] - Validation epoch stats:   Loss: 8.5867 - 
+2026-04-26 14:54:20,892 [INFO] - New best model - save checkpoint
+2026-04-26 14:54:22,090 [DEBUG] - Old lr: 0.000119 - New lr: 0.000113
+2026-04-26 14:54:22,091 [INFO] - Epoch: 20/20
+2026-04-26 14:55:58,985 [INFO] - Training epoch stats:     Loss: 8.2211 - 
+2026-04-26 14:57:14,350 [INFO] - Validation epoch stats:   Loss: 8.5612 - 
+2026-04-26 14:57:14,358 [INFO] - New best model - save checkpoint
+2026-04-26 14:57:15,654 [DEBUG] - Old lr: 0.000113 - New lr: 0.000108
