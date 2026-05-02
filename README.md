@@ -1,122 +1,129 @@
-# NuLite
-
-## Overview
-
-This repository contains our implementation and extension of the **NuLite model** for nuclei instance segmentation and classification in histopathology images. The work builds on a verified baseline and explores two modifications to study model behavior under limited training conditions.
-
-The project includes:
-
-* Baseline reproduction of NuLite
-* Two experimental modifications
-* Evaluation on in-domain and cross-domain datasets
-* Inference pipelines and saved outputs
-
 ---
 
 ## Experiments
 
-### Baseline
-
-* Reproduced original NuLite pipeline
-* Verified training, losses, and metrics
-* Used as reference for comparison with later experiments
+### Baseline Reproduction
+Reproduced the original NuLite-T pipeline on PanNuke.
+Verified training loop, loss functions, metrics, and output shapes.
+Used as the reference point for all experimental comparisons.
 
 ---
 
 ### Experiment 1 — Loss Function Modification
 
-* Modified the **nuclei binary detection branch**
-* Increased emphasis on **FocalTversky Loss**
-* Other branches (HV map, type map, tissue classification) kept unchanged
+Two changes made to the loss configuration:
 
-**Goal:**
-Improve nucleus detection under class imbalance and analyze its effect on segmentation quality.
+| Branch | Original | Experiment 1 |
+|--------|----------|--------------|
+| nuclei_binary_map | Dice + FocalTversky | Dice + FocalTversky **(emphasized)** |
+| hv_map | MSE + MSGE | MSE + MSGE + **Boundary Loss** |
+| nuclei_type_map | BCE + Dice + MCFocalTversky | Unchanged |
+| tissue_types | CrossEntropy | Unchanged |
 
-**Additional Evaluation:**
+**Goal:** Improve nucleus detection under class imbalance and sharpen
+instance boundary separation for the watershed post-processing step.
 
-* Cross-domain generalization tested on a different dataset (MoNuSeg) without retraining
+Also includes cross-domain zero-shot evaluation on MoNuSeg without
+any retraining or fine-tuning.
 
 ---
 
 ### Experiment 2 — Attention Gate Addition
 
-* Introduced an **Attention Gate** in the decoder
-* Applied before final feature fusion (skip connection)
+An `AttentionGate` module inserted at the final skip connection of the
+NuLite decoder, between `decoder0` and the concatenation step.
 
-**Goal:**
-Improve feature selection by suppressing background and enhancing nucleus-relevant regions, especially for difficult classes.
-
----
-
-## Generalization
-
-Generalization was explicitly evaluated by:
-
-* Training on PanNuke dataset
-* Testing on:
-
-  * PanNuke test split (in-domain)
-  * MoNuSeg dataset (cross-domain, zero-shot)
-
-This measures how well the model transfers to unseen tissues and imaging conditions.
+**Goal:** Suppress background encoder features and amplify nucleus-relevant
+spatial regions, improving performance on rare and visually subtle classes
+such as Inflammatory and Epithelial nuclei.
 
 ---
 
-## Evaluation Metrics
+## Results Summary
 
-Performance is measured using:
+### PanNuke Fold 2 — All Methods
 
-* **mPQ (mean Panoptic Quality)** — overall segmentation + classification quality
-* **bPQ (binary PQ)** — segmentation quality without class labels
-* **Dice Score** — pixel-level overlap
-* **Jaccard Index (IoU)** — stricter overlap metric
-* **F1 Detection** — nucleus detection accuracy
-* **Per-class PQ** — performance across nucleus types
+| Metric | Paper (130ep) | Baseline (2ep) | Exp 1 (20ep) | Exp 2 (15ep) |
+|--------|:-------------:|:--------------:|:------------:|:------------:|
+| mPQ | 0.4762 | 0.3097 | 0.2117 | **0.3965** |
+| bPQ | 0.6817 | 0.4982 | 0.4787 | **0.5703** |
+| F1 Detection | 0.8204 | 0.7441 | 0.7235 | **0.7761** |
+| Binary Dice | 0.7103 | 0.7396 | 0.7331 | **0.7758** |
+| PQ Neoplastic | 0.5121 | 0.3674 | 0.3940 | **0.4758** |
+| PQ Inflammatory | 0.4213 | 0.3310 | 0.0144 | **0.3922** |
+| PQ Connective | 0.3984 | 0.2690 | 0.2123 | **0.3132** |
+| PQ Dead | 0.2011 | 0.0000 | 0.0000 | 0.0000 |
+| PQ Epithelial | 0.4491 | 0.1900 | 0.0014 | **0.4040** |
 
----
+### Cross-Domain Generalization — MoNuSeg (Experiment 1, Zero-Shot)
 
-## Outputs
-
-The repository includes:
-
-* Trained model checkpoints
-* Training logs and loss curves
-* Inference outputs (JSON / CSV)
-* Notebook containing:
-
-  * Visualizations
-  * Metric summaries
-  * Experiment comparisons
+| Dataset | Dice | Jaccard | Std Dice | Std Jaccard |
+|---------|:----:|:-------:|:--------:|:-----------:|
+| PanNuke Fold 2 (in-domain) | 0.7331 | 0.6195 | — | — |
+| MoNuSeg (cross-domain) | **0.7473** | 0.6005 | 0.0632 | 0.0773 |
 
 ---
 
 ## Datasets
 
-* **PanNuke**
+### PanNuke
+- 7,901 image patches from 19 tissue types
+- 256×256 pixels with instance-level nucleus annotations
+- Five nucleus classes: Neoplastic, Inflammatory, Connective, Dead, Epithelial
+- Split: Fold 0 (train) · Fold 1 (val) · Fold 2 (test)
+- Download: [Warwick TIA Centre](https://warwick.ac.uk/fac/cross_fac/tia/data/pannuke)
 
-  * Used for training, validation, and testing
-  * Multi-class nuclei annotations across tissue types
+### MoNuSeg
+- 14 whole-slide tissue images across 8 organs
+- Binary nucleus masks only — no cell type labels
+- Used exclusively for cross-domain zero-shot evaluation
+- Organs: Breast · Liver · Kidney · Prostate · Colon · Bladder · Stomach · Brain
+- Download: [Grand Challenge](https://monuseg.grand-challenge.org/)
 
-* **MoNuSeg**
+---
 
-  * Used for cross-domain evaluation
-  * Binary nucleus segmentation (no type labels)
+## Evaluation Metrics
+
+| Metric | Description |
+|--------|-------------|
+| **mPQ** | Mean Panoptic Quality — primary metric combining detection and classification across all five nucleus classes |
+| **bPQ** | Binary Panoptic Quality — segmentation quality independent of class labels |
+| **F1 Detection** | Harmonic mean of centroid detection precision and recall |
+| **Binary Dice** | Pixel-level overlap between predicted and ground truth nucleus masks |
+| **Per-class PQ** | Panoptic Quality broken down for each of the five nucleus types |
+| **Jaccard (IoU)** | Stricter overlap metric used on MoNuSeg evaluation |
+
+---
+
+## Outputs
+
+The repository includes the following saved outputs:
+
+- Trained model checkpoints for all experiments
+- Per-epoch training and validation loss logs
+- PanNuke evaluation results (all experiments)
+- MoNuSeg cross-domain evaluation results (Experiment 1)
+- Notebook with visualizations, metric summaries, and experiment comparisons
 
 ---
 
 ## References
 
-* NuLite architecture and pretrained weights
-* PanNuke dataset
-* MoNuSeg dataset
-* Focal Tversky Loss
-* Attention U-Net / Attention Gates
-* HoVer-Net and related nuclei segmentation work
+1. Tommasino et al., *NuLite: Lightweight and Fast Model for Nuclei Instance Segmentation*, BSPC 2025
+2. Gamper et al., *PanNuke Dataset*, ECDP 2019
+3. Graham et al., *HoVer-Net*, Medical Image Analysis 2019
+4. Vasu et al., *FastViT*, ICCV 2023
+5. Oktay et al., *Attention U-Net*, MIDL 2018
+6. Abraham & Khan, *Focal Tversky Loss*, ISBI 2019
+7. Kumar et al., *MoNuSeg*, IEEE TMI 2017
+8. Horst et al., *CellViT*, Medical Image Analysis 2024
 
 ---
 
 ## Contributors
 
-* Dania Waseem
-* Wajeeha Khalid
-* Taiba Tariq
+| Name | Student ID |
+|------|-----------|
+| Dania Waseem | 23i-2622 |
+| Wajeeha Khalid | 23i-2610 |
+| Taiba Tariq | 23i-2618 |
