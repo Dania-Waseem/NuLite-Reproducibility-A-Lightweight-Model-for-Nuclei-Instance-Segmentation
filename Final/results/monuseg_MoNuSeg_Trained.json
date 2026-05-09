@@ -1,0 +1,8 @@
+{
+  "experiment": "MoNuSeg Trained",
+  "Dice": 0.8031,
+  "Jaccard": 0.6734,
+  "Dice_std": 0.046,
+  "Jaccard_std": 0.0625,
+  "n_patches": 126
+}

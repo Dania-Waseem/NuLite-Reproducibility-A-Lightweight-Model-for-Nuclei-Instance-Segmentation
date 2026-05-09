@@ -1,0 +1,8 @@
+{
+  "experiment": "Exp1 Zero-Shot",
+  "Dice": 0.3527,
+  "Jaccard": 0.2174,
+  "Dice_std": 0.0866,
+  "Jaccard_std": 0.0633,
+  "n_patches": 126
+}
