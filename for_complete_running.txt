@@ -1,20 +1,75 @@
-1.mkdir C:\Users\DELL\nulite_project
-2.cd C:\Users\DELL\nulite_project
-3.python -m venv nulite_env
-4.nulite_env\Scripts\activate
-5.python -m pip install torch torchvision torchaudio timm numpy pillow scipy scikit-image matplotlib pandas tqdm pyyaml opencv-python wandb natsort numba albumentationsgit clone 6.https://github.com/CosmoIknosLab/NuLite.git
-7.cd NuLite
-8.mkdir data_raw
-9.mkdir data_raw\fold0
-10.mkdir data_raw\fold1
-11.mkdir data_raw\fold2
-12.mkdir logs
-13.mkdir results
-14. Put PanNuke data in folders:
-data_raw\fold0\ images.npy+types.npy+masks.npy
-data_raw\fold1\ images.npy+types.npy+masks.npy
-data_raw\fold2\ images.npy+types.npy+masks.npy
-15.python my_preprocess.y
+## 📌 Training & Data Preparation Instructions
+
+### 1. Enter project directory
+```bash
+cd NuLite
+```
+
+### 2. Create required folders
+```bash
+mkdir data_raw
+mkdir data_raw/fold0
+mkdir data_raw/fold1
+mkdir data_raw/fold2
+mkdir logs
+mkdir results
+```
+
+### 3. Download PanNuke Dataset
+
+Download the dataset from the official source:
+
+https://warwick.ac.uk/fac/cross_fac/tia/data/pannuke/
+
+> The dataset is not included in this repository due to its large size (multiple GB per fold) and storage limitations.
+
+### 4. Organize dataset as follows
+
+```text
+data_raw/
+├── fold0/
+│   ├── images.npy
+│   ├── masks.npy
+│   └── types.npy
+├── fold1/
+│   ├── images.npy
+│   ├── masks.npy
+│   └── types.npy
+└── fold2/
+    ├── images.npy
+    ├── masks.npy
+    └── types.npy
+```
+
+### 5. Run preprocessing
+
+```bash
+python my_preprocess.py
+```
+
+### 6. Install dependencies (if needed)
+
+```bash
 python -m pip install "numpy<2"
 python -m pip install --upgrade matplotlib
-16.
+```
+
+### 7. Run training / evaluation
+
+```bash
+python train.py
+python my_train_exp1.py
+python my_train_exp2.py
+python my_train_monuseg.py
+python my_evaluate.py
+```
+
+---
+
+## ⚠️ Notes
+
+- PanNuke dataset is very large and must be downloaded manually
+- Each fold contains `.npy` files (images, masks, types)
+- These files are processed using `my_preprocess.py`
+- Training scripts assume this exact folder structure
+- `.npy` files may not open in VS Code due to size, but are fully supported in training pipeline
