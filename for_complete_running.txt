@@ -1,31 +1,23 @@
-## 📌 Training & Data Preparation Instructions
+TRAINING & DATA PREPARATION INSTRUCTIONS
 
-### 1. Enter project directory
-```bash
+1. Enter project directory
 cd NuLite
-```
 
-### 2. Create required folders
-```bash
+2. Create required folders
 mkdir data_raw
 mkdir data_raw/fold0
 mkdir data_raw/fold1
 mkdir data_raw/fold2
 mkdir logs
 mkdir results
-```
 
-### 3. Download PanNuke Dataset
-
-Download the dataset from the official source:
-
+3. Download PanNuke Dataset
 https://warwick.ac.uk/fac/cross_fac/tia/data/pannuke/
 
-> The dataset is not included in this repository due to its large size (multiple GB per fold) and storage limitations.
+The dataset is not included in this repository due to its large size (multiple GB per fold) and storage limitations.
 
-### 4. Organize dataset as follows
+4. Organize dataset as follows
 
-```text
 data_raw/
 ├── fold0/
 │   ├── images.npy
@@ -39,37 +31,24 @@ data_raw/
     ├── images.npy
     ├── masks.npy
     └── types.npy
-```
 
-### 5. Run preprocessing
-
-```bash
+5. Run preprocessing
 python my_preprocess.py
-```
 
-### 6. Install dependencies (if needed)
-
-```bash
+6. Install dependencies (if needed)
 python -m pip install "numpy<2"
 python -m pip install --upgrade matplotlib
-```
 
-### 7. Run training / evaluation
-
-```bash
+7. Run training / evaluation
 python train.py
 python my_train_exp1.py
 python my_train_exp2.py
 python my_train_monuseg.py
 python my_evaluate.py
-```
 
----
-
-## ⚠️ Notes
-
-- PanNuke dataset is very large and must be downloaded manually
-- Each fold contains `.npy` files (images, masks, types)
-- These files are processed using `my_preprocess.py`
-- Training scripts assume this exact folder structure
-- `.npy` files may not open in VS Code due to size, but are fully supported in training pipeline
+NOTES:
+- PanNuke dataset must be downloaded manually
+- Each fold contains images.npy, masks.npy, types.npy files
+- These files are large and may not open in VS Code
+- Training scripts use these files directly
+- Preprocessing is required before training
