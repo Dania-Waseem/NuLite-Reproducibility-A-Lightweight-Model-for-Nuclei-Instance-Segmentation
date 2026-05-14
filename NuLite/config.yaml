@@ -1,0 +1,49 @@
+# NuLite Configuration File
+# Used by train.py and inference.py
+
+data:
+  dataset: PanNuke
+  data_dir: ./data_processed
+  train_folds: [0]
+  val_folds: [1]
+  test_folds: [2]
+  num_nuclei_classes: 6
+  num_tissue_classes: 19
+
+model:
+  backbone: fastvit_t8
+  num_classes: 6
+  use_attention_gate: false   # set true for Experiment 2
+
+training:
+  epochs: 2
+  batch_size: 4
+  lr: 0.0003
+  weight_decay: 0.0001
+  betas: [0.85, 0.95]
+  scheduler_gamma: 0.85
+  early_stopping_patience: 20
+  mixed_precision: false
+
+experiment1:
+  epochs: 20
+  ft_alpha: 0.7
+  ft_beta: 0.3
+  boundary_lambda: 1.0
+
+experiment2:
+  epochs: 15
+  use_attention_gate: true
+
+logging:
+  log_dir: ./logs
+  results_dir: ./results
+
+checkpoints:
+  baseline: ./checkpoints/baseline_best.pth
+  exp1: ./checkpoints/exp1_best.pth
+  exp2: ./checkpoints/exp2_best.pth
+
+inference:
+  threshold: 0.5
+  save_dir: ./results/inference

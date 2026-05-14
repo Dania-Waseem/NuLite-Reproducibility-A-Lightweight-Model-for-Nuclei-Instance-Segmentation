@@ -1,0 +1,14 @@
+{
+  "experiment": "Exp2: Attn Gate (15ep)",
+  "metrics": {
+    "mPQ": 0.4969,
+    "bPQ": 0.0,
+    "F1 Detection": 0.0095,
+    "Binary Dice": 0.2749,
+    "PQ Neoplastic": 0.0,
+    "PQ Inflammatory": 0.4816,
+    "PQ Connective": 0.2245,
+    "PQ Dead": 0.9644,
+    "PQ Epithelial": 0.8141
+  }
+}

@@ -1,0 +1,16 @@
+image_path,fold,tissue_type,n_neoplastic,n_inflammatory,n_connective,n_dead,n_epithelial,total_nuclei
+data_processed/fold2/images/2_01061.png,2,Esophagus,31,0,1,0,0,32
+data_processed/fold2/images/2_00408.png,2,Breast,13,0,1,0,0,14
+data_processed/fold2/images/2_02479.png,2,Testis,19,1,0,0,0,20
+data_processed/fold2/images/2_01393.png,2,Colon,25,0,0,0,0,25
+data_processed/fold2/images/2_01288.png,2,Testis,18,2,0,0,0,20
+data_processed/fold2/images/2_01266.png,2,Bile-duct,0,0,2,0,0,2
+data_processed/fold2/images/2_00387.png,2,Breast,2,1,3,0,0,6
+data_processed/fold2/images/2_00926.png,2,Esophagus,0,0,3,0,0,3
+data_processed/fold2/images/2_01866.png,2,Colon,0,9,5,0,4,18
+data_processed/fold2/images/2_02473.png,2,Testis,13,61,5,0,0,79
+data_processed/fold2/images/2_00705.png,2,Breast,6,2,6,0,0,14
+data_processed/fold2/images/2_01177.png,2,Esophagus,23,0,0,0,0,23
+data_processed/fold2/images/2_01675.png,2,Cervix,17,11,9,0,0,37
+data_processed/fold2/images/2_01703.png,2,Colon,0,2,5,0,12,19
+data_processed/fold2/images/2_02243.png,2,Liver,7,3,6,0,0,16

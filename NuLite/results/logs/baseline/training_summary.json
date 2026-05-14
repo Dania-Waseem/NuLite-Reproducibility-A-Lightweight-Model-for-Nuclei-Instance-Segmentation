@@ -1,0 +1,15 @@
+{
+  "experiment": "Baseline (2 epoch reproduction)",
+  "epochs": 2,
+  "best_val_loss": 3.6994,
+  "best_epoch": 2,
+  "n_params": 5888073,
+  "train_losses": [
+    3.8942,
+    3.6902
+  ],
+  "val_losses": [
+    3.715,
+    3.6994
+  ]
+}

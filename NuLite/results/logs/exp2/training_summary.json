@@ -1,0 +1,17 @@
+{
+  "experiment": "Experiment 2: Attention Gate (15 epochs)",
+  "epochs": 3,
+  "best_val_loss": 3.6942,
+  "best_epoch": 2,
+  "n_params": 5889227,
+  "train_losses": [
+    3.8838,
+    3.6896,
+    3.6854
+  ],
+  "val_losses": [
+    3.7129,
+    3.6942,
+    3.6963
+  ]
+}
