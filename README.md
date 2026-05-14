@@ -1,3 +1,60 @@
+# ⚠️ IMPORTANT NOTE
+
+**👉 ONLY DOWNLOAD / USE THE `NuLite/` FOLDER FOR INFERENCE AND MODEL TESTING.**  
+All required code, checkpoints, configs, and inference scripts are inside this folder.  
+Other repository folders are for reference, experiments, and dataset organization only.
+
+---
+
+# NuLite
+NuLite/
+├── checkpoints/
+│   ├── baseline_best.pth
+│   ├── exp1_best.pth
+│   ├── exp2_best.pth
+│   └── monuseg_best.pth
+├── data/
+│   └── sample_data.csv
+├── data_processed/
+│   ├── fold2/
+│   └── monuseg/
+│       └── test/
+├── notebooks/
+│   └── results/
+│       └── inference/
+│   └── 01_inference_demo.ipynb
+├── results/
+│   ├── inference/
+│   ├── logs/
+│   ├── A2_Baseline_2ep_metrics.json
+│   ├── Exp1_Loss_Mod_20ep_metrics.json
+│   ├── Exp2_Attn_Gate_15ep_metrics.json
+│   ├── monuseg_Exp1_Zero-Shot.json
+│   ├── monuseg_MoNuSeg_Trained.json
+│   ├── monuseg_predictions_Exp1_Zero-Shot.json
+│   ├── monuseg_predictions_MoNuSeg_Trained.json
+│   ├── monuseg_preprocessing_samples.png
+│   └── preprocessing_samples.png
+├── src/
+│   ├── __pycache__/
+│   │   ├── dataset.py
+│   │   ├── model.py
+│   │   └── utils.py
+
+├── config.yaml
+├── inference.py
+├── my_dataset.py
+├── my_evaluate.py
+├── my_evaluate_monuseg.py
+├── my_model.py
+├── my_preprocess.py
+├── my_preprocess_monuseg.py
+├── my_train_exp1.py
+├── my_train_exp2.py
+├── my_train_monuseg.py
+├── requirements.txt
+├── summary.py
+└── train.py
 ---
 
 ## Experiments
