@@ -1,12 +1,13 @@
 # ⚠️ IMPORTANT NOTE
 
 **👉 ONLY DOWNLOAD / USE THE `NuLite/` FOLDER FOR INFERENCE AND MODEL TESTING.**  
-All required code, checkpoints, configs, and inference scripts are inside this folder.  
-Other repository folders are for reference, experiments, and dataset organization only.
+All required code, checkpoints, configs, and inference scripts are inside this folder.
 
 ---
 
-# NuLite
+## 📁 NuLite Project Structure
+
+```text
 NuLite/
 ├── checkpoints/
 │   ├── baseline_best.pth
@@ -20,8 +21,8 @@ NuLite/
 │   └── monuseg/
 │       └── test/
 ├── notebooks/
-│   └── results/
-│       └── inference/
+│   ├── results/
+│   │   └── inference/
 │   └── 01_inference_demo.ipynb
 ├── results/
 │   ├── inference/
@@ -40,7 +41,6 @@ NuLite/
 │   │   ├── dataset.py
 │   │   ├── model.py
 │   │   └── utils.py
-
 ├── config.yaml
 ├── inference.py
 ├── my_dataset.py
@@ -55,6 +55,7 @@ NuLite/
 ├── requirements.txt
 ├── summary.py
 └── train.py
+
 ---
 
 ## Experiments
